@@ -1,0 +1,39 @@
+
+<div class="chanHeader">
+    <div>
+        <h1>@<%= user.Username %></h1>
+        <span><%= %></span>
+    </div>
+</div>
+<div id="chanMessageList">
+ <% for (const message of old) { %>
+        <div class="message">
+            <div class="guildIcon">
+                <% if(message.Avatar){ %>
+                    <img src="<%= message.Avatar %>">
+                <% } else { %>
+                    <% let guildAcro = message.Username.split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'') %>
+                    <%= guildAcro %>
+                <% } %>
+            </div>
+            <div class="content">
+                <b><%= message.Username %></b>
+                <small>
+                    <%  const time = new Date(message.time) %>
+
+                    <%= `
+                        ${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}
+                        ${String(time.getHours()).padStart(2, '0')}:${String(time.getMinutes()).padStart(2, '0')}
+                    ` %>
+
+                </small>
+                <p><%= message.content %></p>
+            </div>
+
+        </div>
+    <% } %>
+</div>
+
+<form id="formMessage" action="">
+    <input type="text" id="send" placeholder="Envoyer un message à #" autocomplete="off">
+</div>

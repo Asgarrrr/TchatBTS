@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <link rel="stylesheet" href="/stylesheets/auth.css">
+    </head>
+
+    <body>
+
+        <div class="form">
+            <div class="form-toggle"></div>
+            <div class="form-panel one">
+                <% if (locals.register_error) { register_error.forEach(function(error_msg){ %>
+                    <div class="erroralert ">
+                        <%= error_msg %>
+                    </div>
+                <% }); } %>
+                <% if (locals.login_errors) { login_errors.forEach(function(error_msg){ %>
+                    <div class="erroralert">
+                        <%= error_msg %>
+                    </div>
+                <% }); } %>
+                <div class="form-header">
+                    <h1>Connecte toi</h1>
+                    <small>(Pas la cafetiere, hein)</small>
+                </div>
+                <form class="form-content" method="POST" action="/auth/login">
+                    <form>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-remember">
+                                <input type="checkbox" />Remember Me
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Log In</button>
+                        </div>
+                    </form>
+                </form>
+            </div>
+            <div class="form-panel two">
+                <div class="form-header">
+                    <h1>Connecte toi</h1>
+                    <small>(Pas la cafetiere)</small>
+                </div>
+                <div class="form-content">
+                    <form action="/auth/register" method="POST">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="cpassword">Confirm Password</label>
+                            <input type="password" id="cpassword" name="cpassword" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="/jquery/jquery.js"></script>
+        <script>
+            $(document).ready(function () {
+                var panelOne = $('.form-panel.two').height(),
+                    panelTwo = $('.form-panel.two')[0].scrollHeight;
+
+                $('.form-panel.two').not('.form-panel.two.active').on('click', function (e) {
+
+                    $('.form-toggle').addClass('visible');
+                    $('.form-panel.one').addClass('hidden');
+                    $('.form-panel.two').addClass('active');
+                    $('.form').animate({
+                        'height': panelTwo
+                    }, 200);
+                });
+
+                $('.form-toggle').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).removeClass('visible');
+                    $('.form-panel.one').removeClass('hidden');
+                    $('.form-panel.two').removeClass('active');
+                    $('.form').animate({
+                        'height': panelOne
+                    }, 200);
+                });
+
+            });
+        </script>
+    </body>
+
+</html>
+
