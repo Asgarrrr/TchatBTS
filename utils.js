@@ -1,3 +1,56 @@
+function dbSet(db) {
+
+    db.pragma("journal_mode = WAL");
+    db.pragma("synchronous = 1");
+
+    db.exec(
+        `
+        CREATE TABLE IF NOT EXISTS "channels" (
+            "name"	        TEXT,
+            "_ID"	        INTEGER UNIQUE,
+            "Position"	    INTEGER,
+            "Type"	        INTEGER,
+            "desc"	        TEXT,
+
+            PRIMARY KEY("_ID" AUTOINCREMENT)
+        );
+
+        CREATE TABLE IF NOT EXISTS "messages" (
+            "_ID"	        INTEGER UNIQUE,
+            "_AuthorID"	    INTEGER,
+            "Content"	    TEXT,
+            "_ChannelID"	INTEGER,
+            "Time"	        TEXT,
+
+            FOREIGN KEY("_ChannelID") REFERENCES "channels"("_ID"),
+            FOREIGN KEY("_AuthorID") REFERENCES "users"("_ID"),
+            PRIMARY KEY("_ID" AUTOINCREMENT)
+        );
+
+        CREATE TABLE IF NOT EXISTS "mp" (
+            "_ID"	    INTEGER UNIQUE,
+            "_from"	    INTEGER,
+            "_to"	    INTEGER,
+            "content"	TEXT,
+            "time"	    TEXT,
+
+            FOREIGN KEY("_to") REFERENCES "users"("_ID"),
+            FOREIGN KEY("_from") REFERENCES "users"("_ID"),
+            PRIMARY KEY("_ID" AUTOINCREMENT)
+        );
+
+        CREATE TABLE IF NOT EXISTS "users" (
+            "_ID"	    INTEGER UNIQUE,
+            "Username"	TEXT,
+            "Pass"	    TEXT,
+            "Avatar"	TEXT,
+
+            PRIMARY KEY("_ID" AUTOINCREMENT)
+        );
+        `
+    )
+}
+
 function getUser(db, id) {
     return db.prepare("SELECT * FROM users WHERE _ID = ?").get(id)
 }
@@ -31,6 +84,7 @@ function checkAuth(req, res, next) {
 
 
 module.exports = {
+    dbSet,
     getUser,
     getAllChannel,
     getAllUsers,

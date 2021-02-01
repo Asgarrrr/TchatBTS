@@ -14,22 +14,13 @@ const path          = require('path')
     , createError   = require('http-errors')
 // —— Parse HTTP request cookies
     , cookieParser  = require('cookie-parser');
-const user = require('./routes/user');
 
 // —— Creates and/or instantiates a new SQLite connection
 const db = new SQLite('./database.sqlite')
-// —— Creates a new instance of express
 
-//     , server = app.listen("3000", () => {
-//         console.log("Listening on port: 3000");
-//     })
-// // —— Socket.IO enables real-time bidirectional event-based communication
-//     , socket        = require('socket.io')(server)
+const { dbSet } = require("./utils");
 
-
-
-//app.io = socket;
-
+dbSet(db);
 
 // ██████ Routes ██████████████████████████████████████████████████████████████
 
