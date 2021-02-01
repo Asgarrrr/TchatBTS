@@ -15,8 +15,15 @@
         <div class="form">
             <div class="form-toggle"></div>
             <div class="form-panel one">
+
+                <% if (locals.succes === "succes") { %>
+                    <div class="succes">
+                        <p>Compte crée ! connecte-toi ... ☕ </p>
+                    </div>
+                <% } %>
+
                 <% if (locals.register_error) { register_error.forEach(function(error_msg){ %>
-                    <div class="erroralert ">
+                    <div class="erroralert">
                         <%= error_msg %>
                     </div>
                 <% }); } %>
@@ -45,18 +52,18 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <button type="submit">Log In</button>
+                            <button type="submit">Connexion !</button>
                         </div>
                     </form>
                 </form>
             </div>
             <div class="form-panel two">
                 <div class="form-header">
-                    <h1>Connecte toi</h1>
-                    <small>(Pas la cafetiere)</small>
+                    <h1>Inscription</h1>
+                    <small>(Toujours pas la cafetiere)</small>
                 </div>
                 <div class="form-content">
-                    <form action="/auth/register" method="POST">
+                    <form action="/auth/register" method="POST" id="register">
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" id="username" name="username" required="required" />
@@ -70,39 +77,51 @@
                             <input type="password" id="cpassword" name="cpassword" required="required" />
                         </div>
                         <div class="form-group">
-                            <input type="submit">Register</button>
+                            <input type="submit" value="Inscription"></button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <script src="/jquery/jquery.js"></script>
+
         <script>
-            $(document).ready(function () {
-                var panelOne = $('.form-panel.two').height(),
-                    panelTwo = $('.form-panel.two')[0].scrollHeight;
 
-                $('.form-panel.two').not('.form-panel.two.active').on('click', function (e) {
+            document.addEventListener('readystatechange', async event => {
 
-                    $('.form-toggle').addClass('visible');
-                    $('.form-panel.one').addClass('hidden');
-                    $('.form-panel.two').addClass('active');
-                    $('.form').animate({
-                        'height': panelTwo
-                    }, 200);
-                });
+                if (event.target.readyState === "complete") {
 
-                $('.form-toggle').on('click', function (e) {
-                    e.preventDefault();
-                    $(this).removeClass('visible');
-                    $('.form-panel.one').removeClass('hidden');
-                    $('.form-panel.two').removeClass('active');
-                    $('.form').animate({
-                        'height': panelOne
-                    }, 200);
-                });
+                    var panelOne = parseFloat(getComputedStyle(document.querySelector(".form-panel.one"), null).height.replace("px", ""))
+                        panelTwo = document.querySelector(".form-panel.two").scrollHeight;
 
-            });
+
+                    document.querySelector('.form-panel.two:not(.form-panel.two.active)').addEventListener('click', function (e) {
+
+                        document.querySelector('.form-toggle').classList.add('visible');
+                        document.querySelector('.form-panel.one').classList.add('hidden');
+                        document.querySelector('.form-panel.two').classList.add('active');
+
+                        document.querySelector('.form').style.height = panelTwo + "px"
+
+                    })
+
+                    document.querySelector('.form-toggle').addEventListener('click', function (e) {
+
+                        e.preventDefault();
+
+                        document.querySelector('.form-toggle').classList.remove('visible');
+                        document.querySelector('.form-panel.one').classList.remove('hidden');
+                        document.querySelector('.form-panel.two').classList.remove('active');
+
+                        document.querySelector('.form').style.height = panelOne + "px"
+
+                        console.log(panelOne);
+
+                    });
+
+                }
+
+            })
+
         </script>
     </body>
 

@@ -292,3 +292,7 @@ body {
 .erroralert {
     color: red;
 }
+
+.succes {
+    color: green;
+}

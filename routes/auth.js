@@ -1,6 +1,7 @@
 // ██████ Integrations ████████████████████████████████████████████████████████
 
 // —— Fast, unopinionated, minimalist web framework for node.
+
 const express = require('express')
 // —— Optimized bcrypt in JavaScript with zero dependencies
     , bcrypt = require('bcryptjs')
@@ -18,8 +19,6 @@ const router = express.Router();
  * @description Checks if the user is still authenticated
  */
 function isLogged(req, res, next) {
-
-    console.log(req.session.user);
 
     if (req.session.user) {
         return res.redirect('/');
@@ -47,7 +46,17 @@ module.exports = function (io, db) {
 
         // —— Check POST request data
         body('username', 'Username is Empty!').trim().not().isEmpty(),
-        body('username').custom((value) => {
+        body('username')
+        .custom((value, {req, loc, path}) => {
+
+            if (req.body.password !== req.body.cpassword) {
+                // —— Throw error if passwords do not match
+                throw new Error("Passwords don't match");
+            } else {
+                return value;
+            }
+        })
+        .custom((value) => {
 
             if (db.prepare("SELECT `Username` FROM `users` WHERE `Username` = ?").get(value)) {
                 return Promise.reject('This user already register!');
@@ -74,7 +83,11 @@ module.exports = function (io, db) {
                try {
 
                    db.prepare("INSERT INTO `users`(`Username`,`Pass`) VALUES(?, ?)").run(username, hash_pass);
-                   res.send(`Your account has been created successfully, Now you can <a href="/">Login</a>`);
+
+                   // —— Redering auth page with love <3
+                    res.render('auth', {
+                        succes : "succes"
+                    });
 
                 } catch (error) {
                     // —— Launch the insertion of user errors
