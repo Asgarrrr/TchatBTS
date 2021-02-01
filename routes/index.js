@@ -9,7 +9,6 @@ module.exports = function (io, db) {
     router.get('/', checkAuth, function(req, res, next) {
 
         res.render('index', {
-            title: 'Express',
             user: getUser(db, req.session.user._ID),
             channels: getAllChannel(db),
             users: getAllUsers(db),

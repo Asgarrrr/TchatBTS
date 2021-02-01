@@ -1,13 +1,13 @@
   @font-face {
-    font-family: 'Whitney Medium';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Whitney Medium'), url('../fonts/whitneymedium.woff') format('woff');
-}
+      font-family: 'Whitney Medium';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Whitney Medium'), url('../fonts/whitneymedium.woff') format('woff');
+  }
 
 
-:root {
-	/* --main-bg-color: #202225;
+  :root {
+      /* --main-bg-color: #202225;
 	--second-bg-color: #2f3136;
 	--radio-group-dot-foreground: #8ea1e1;
 	--backgroundMid: #464c64;
@@ -23,406 +23,491 @@
 	--green: #19caa7;
 	--red: #fc4661; */
 
-    --nav : #0F0F13;
-    --content: #212328
-}
+      --nav: #0F0F13;
+      --content: #212328
+  }
 
-body {
-    margin: 0;
-	background-color: var(--content);
-    font-family: "Whitney Medium";
-}
+  body {
+      margin: 0;
+      background-color: var(--content);
+      font-family: "Whitney Medium";
+  }
 
-.guildSelector {
-	overflow: hidden;
-	display: flex;
-	width: 240px;
-	height: 100vh;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	-ms-flex-negative: 0;
-	flex-shrink: 0;
-	background-color: var(--nav);
-	color: white;
-	position: sticky;
-	position: -webkit-sticky;
-	top: 0;
-    padding: 0px 20px 0px 20px;
-}
+  .guildSelector {
+      overflow: hidden;
+      display: flex;
+      width: 240px;
+      height: 100vh;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
+      background-color: var(--nav);
+      color: white;
+      position: sticky;
+      position: -webkit-sticky;
+      top: 0;
+      padding: 0px 20px 0px 20px;
+      transition: transform .5s;
+      z-index: 100;
+  }
 
-.slider {
-	overflow: hidden scroll;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	padding-bottom: 20px;
+  .menuOpen {
+      transform: translateX(280px);
+  }
 
-}
+  .slider {
+      overflow: hidden scroll;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 20px;
 
-.separator {
-	width: 50%;
-	height: 2px;
-	min-height: 2px;
-	border-radius: 5px;
-	background-color: #ffffff0f;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
+  }
 
-.guildIcon {
-	border-radius: 50%;
-	background-color: #36393f;
-	width: 57px;
-    min-width: 54px;
-	height: 57px;
-	min-height: 57px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: 500;
-	transition: all .35s;
-	overflow: hidden;
-	cursor: pointer;
-	color: white;
-	text-decoration: none;
-}
+  .separator {
+      width: 50%;
+      height: 2px;
+      min-height: 2px;
+      border-radius: 5px;
+      background-color: #ffffff0f;
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
 
-.guildIcon:hover {
-	background-color: var(--radio-group-dot-foreground);
-	transition: all .35s;
-	border-radius: 25%;
-	color: white;
-	text-decoration: none;
-}
+  .guildIcon {
+      border-radius: 50%;
+      background-color: #36393f;
+      width: 57px;
+      min-width: 54px;
+      height: 57px;
+      min-height: 57px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      transition: all .35s;
+      overflow: hidden;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+  }
 
-.guildIcon > img {
-	height: 100%;
-}
+  .guildIcon:hover {
+      background-color: var(--radio-group-dot-foreground);
+      transition: all .35s;
+      border-radius: 25%;
+      color: white;
+      text-decoration: none;
+  }
 
-.admintool {
-	justify-content: center;
-	color: white;
-}
+  .guildIcon>img {
+      height: 100%;
+  }
 
-.admintool svg {
-	width: 25px;
-}
+  .admintool {
+      justify-content: center;
+      color: white;
+  }
 
-.admintool .guildIcon {
-	background-color: transparent;
-}
+  .admintool svg {
+      width: 25px;
+  }
 
-.admintool .guildIcon:last-child {
-	position: absolute;
-	bottom: 10px;
-}
+  .admintool .guildIcon {
+      background-color: transparent;
+  }
 
-.guildSelector > .slider > .guildIcon {
-	margin-bottom: 10px;
-}
+  .admintool .guildIcon:last-child {
+      position: absolute;
+      bottom: 10px;
+  }
 
-.optionSelector {
-	width: 300px;
-	background-color: var(--backgroundDark);
-	padding: 30px;
-}
+  .guildSelector>.slider>.guildIcon {
+      margin-bottom: 10px;
+  }
 
-.optionList {
-	display: flex;
-	flex-direction: column;
-}
+  .optionSelector {
+      width: 300px;
+      background-color: var(--backgroundDark);
+      padding: 30px;
+  }
 
-.online::after {
-	content: "";
-	width: 15px;
-	height: 15px;
-	background-color: #43b581;
-	position: absolute;
-	border-radius: 50%;
-	border: 3px solid var(--main-bg-color);
-	bottom: 0;
-	left: 43px;
-}
+  .optionList {
+      display: flex;
+      flex-direction: column;
+  }
 
-.idle::after {
-	content: "";
-	width: 15px;
-	height: 15px;
-	background-color: rgb(250, 166, 26);
-	position: absolute;
-	border-radius: 50%;
-	border: 3px solid var(--main-bg-color);
-	bottom: 0;
-	left: 43px;
-}
+  .online::after {
+      content: "";
+      width: 15px;
+      height: 15px;
+      background-color: #43b581;
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid var(--main-bg-color);
+      bottom: 0;
+      left: 43px;
+  }
 
-.offline::after {
-	content: "";
-	width: 15px;
-	height: 15px;
-	background-color: rgb(116, 127, 141);
-	position: absolute;
-	border-radius: 50%;
-	border: 3px solid var(--main-bg-color);
-	bottom: 0;
-	left: 43px;
-}
+  .idle::after {
+      content: "";
+      width: 15px;
+      height: 15px;
+      background-color: rgb(250, 166, 26);
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid var(--main-bg-color);
+      bottom: 0;
+      left: 43px;
+  }
 
-.dnd::after {
-	content: "";
-	width: 15px;
-	height: 15px;
-	background-color: rgb(240, 71, 71);
-	position: absolute;
-	border-radius: 50%;
-	border: 3px solid var(--main-bg-color);
-	bottom: 0;
-	left: 43px;
-}
+  .offline::after {
+      content: "";
+      width: 15px;
+      height: 15px;
+      background-color: rgb(116, 127, 141);
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid var(--main-bg-color);
+      bottom: 0;
+      left: 43px;
+  }
 
-.guildcheck {
-	position: absolute;
-	top: 99px;
-	width: 57px;
-	transition: .35s all;
-}
+  .dnd::after {
+      content: "";
+      width: 15px;
+      height: 15px;
+      background-color: rgb(240, 71, 71);
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid var(--main-bg-color);
+      bottom: 0;
+      left: 43px;
+  }
 
-.dataContent {
-	width: 100%;
-	height: 100%;
-}
+  .guildcheck {
+      position: absolute;
+      top: 99px;
+      width: 57px;
+      transition: .35s all;
+  }
 
-.card {
-	background-color: var(--lDark);
-	border: none;
-}
+  .dataContent {
+      width: 100%;
+      height: 100%;
+  }
 
-main {
-	width: 100%;
-}
+  .card {
+      background-color: var(--lDark);
+      border: none;
+  }
 
-.container {
-	width: 100%;
-	max-width: 960px;
-	margin: 0 auto;
-	padding: 0 20px;
-	box-sizing: border-box;
-	margin-top: 80px;
-	color: #fff;
-}
+  main {
+      width: 100%;
+  }
 
-.container.guild {
-	max-width: 1120px;
-}
+  .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+      margin-top: 80px;
+      color: #fff;
+  }
 
-@media (min-width: 400px) {
-	.container {
-		width: 85%;
-		padding: 0;
-	}
-}
+  .container.guild {
+      max-width: 1120px;
+  }
 
-.channelSelect {
-    display: flex;
-    color: #72767d;
-    margin-left: 8px;
-    padding: 0 8px;
-    padding: 8px;
-    border-radius: 4px;
-    margin-bottom: 1px;
-    font-size: 10px;
-    min-height: 20px;
-}
+  @media (min-width: 400px) {
+      .container {
+          width: 85%;
+          padding: 0;
+      }
+  }
 
-.channelSelect:hover {
-    background-color: #4f545c29;
-    color: #8e9297;
-}
+  .channelSelect {
+      display: flex;
+      color: #72767d;
+      margin-left: 8px;
+      padding: 0 8px;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 1px;
+      font-size: 10px;
+      min-height: 20px;
+  }
 
-.selected {
-    background-color: #4f545c52;
-}
+  .channelSelect:hover {
+      background-color: #4f545c29;
+      color: #8e9297;
+  }
 
-.channelName {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-    color: #8e9297;
-}
+  .selected {
+      background-color: #4f545c52;
+  }
 
-.textCcon {
-    width: 20px;
-    height: 20px;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    margin-right: 6px;
-}
+  .channelName {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+      white-space: nowrap;
+      color: #8e9297;
+  }
 
-.flex{
-    display: flex;
-    width: 100%;
+  .textCcon {
+      width: 20px;
+      height: 20px;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      margin-right: 6px;
+  }
 
-}
+  .flex {
+      display: flex;
+      width: 100%;
 
-.flex-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
+  }
 
-
-.message {
-    display: flex;
-    padding: 10px 9px 10px 20px;
-    min-height: fit-content;
-}
-
-.message .content {
-    margin-left: 30px;
-    color: #dcddde;
-}
-
-.message small {
-    margin-left: 10px;
-    font-weight: 100;
-    color: #72767d;
-}
-
-.message:hover {
-    background-color: #0e0f13;
-}
-
-#channelDesc {
-    position: sticky;
-    top: 0;
-    right: 0;
-    height: 90px;
-    background-color: var(--content);
-    padding: 20px 0 0px 20px;
-    color: white;
-    border-bottom: 1px solid black;
-}
-
-#channelDesc h3 {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 600;
-    color: white;
-    display: initial;
-}
-
-#channelDesc .textCcon {
-    height: 24px;
-    width: 24px;
-    color: #72767d
-}
-
-.channelCat {
-    position: sticky;
-    top: 0;
-    background-color: var(--nav);
-    color: #9f9fa0;
-    font-size: 75%;
-    letter-spacing: 2px;
-    padding: 10px 0px 10px 0px;
-    text-transform: uppercase;
-}
-
-.channelOpen, .channelOpen:hover {
-    background-color: #4f545c29;
-    color: #fff;
-}
-
-.channelOpen span {
-    color: #fff;
-}
-
-header.profil {
-    margin: 1rem 0 1rem 0;
-    padding-bottom: 1rem;
-    text-align: center;
-}
-
-header.profil .avatar {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0 2rem 0;
-    font-size: 30px;
-}
-
-header.profil .guildIcon {
-    min-width: 110px;
-    min-height: 110px;
-}
-
-#messageArea {
-    flex: 1;
-}
-
-#send {
-    width: 100%;
-    width: -moz-available;
-    width: -webkit-fill-available;
-    width: fill-available;
-    padding: 25px 30px;
-    background-color: #333539;
-    border: 1px solid #4B4E53;
-    border-radius: 6px;
-    color: white;
-}
-
-#send:focus{
-    outline: 0;
-}
-#formMessage {
-    margin: 20px;
-}
-
-.message:last-of-type {
-    margin-bottom: 50px
-}
-
-#channel {
-    flex-grow: 1;
-    flex-direction: column;
-    display: flex;
-    height: 100vh;
-}
-
-.chanHeader {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    color: white;
-    height: 4rem;
-    min-height: 4rem;
-    align-items: center;
-    display: flex;
-    border-bottom: 1px solid rgba(232, 232, 232, 0.25);
-    background-color: var(--nav);
-}
+  .flex-row {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+  }
 
 
-.chanHeader h1 {
-    line-height: 1;
-    font-size: .875rem;
-    font-weight: 700;
-    margin: 0;
-}
+  .message {
+      display: flex;
+      padding: 10px 9px 10px 20px;
+      min-height: fit-content;
+  }
 
-.chanHeader span {
-    line-height: 1;
-    font-size: .75rem;
-}
+  .message .content {
+      margin-left: 30px;
+      color: #dcddde;
+      word-break: break-all;
+  }
+
+  .message small {
+      margin-left: 10px;
+      font-weight: 100;
+      color: #72767d;
+  }
+
+  .message:hover {
+      background-color: #0e0f13;
+  }
+
+  #channelDesc {
+      position: sticky;
+      top: 0;
+      right: 0;
+      height: 90px;
+      background-color: var(--content);
+      padding: 20px 0 0px 20px;
+      color: white;
+      border-bottom: 1px solid black;
+  }
+
+  #channelDesc h3 {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+      color: white;
+      display: initial;
+  }
+
+  #channelDesc .textCcon {
+      height: 24px;
+      width: 24px;
+      color: #72767d
+  }
+
+  .channelCat {
+      position: sticky;
+      top: 0;
+      background-color: var(--nav);
+      color: #9f9fa0;
+      font-size: 75%;
+      letter-spacing: 2px;
+      padding: 10px 0px 10px 0px;
+      text-transform: uppercase;
+  }
+
+  .channelOpen,
+  .channelOpen:hover {
+      background-color: #4f545c29;
+      color: #fff;
+  }
+
+  .channelOpen span {
+      color: #fff;
+  }
+
+  header.profil {
+      margin: 1rem 0 1rem 0;
+      padding-bottom: 1rem;
+      text-align: center;
+  }
+
+  header.profil .avatar {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0 2rem 0;
+      font-size: 30px;
+  }
+
+  header.profil .guildIcon {
+      min-width: 110px;
+      min-height: 110px;
+  }
+
+  #messageArea {
+      flex: 1;
+  }
+
+  #send {
+      width: 100%;
+      width: -moz-available;
+      width: -webkit-fill-available;
+      width: fill-available;
+      padding: 25px 30px;
+      background-color: #333539;
+      border: 1px solid #4B4E53;
+      border-radius: 6px;
+      color: white;
+  }
+
+  #send:focus {
+      outline: 0;
+  }
+
+  #formMessage {
+      margin: 20px;
+      position:sticky;
+      bottom: 0px;
+  }
+
+  .message:last-of-type {
+      margin-bottom: 50px
+  }
+
+  #channel {
+      flex-grow: 1;
+      flex-direction: column;
+      display: flex;
+      height: 100vh;
+  }
+
+  .chanHeader {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      color: white;
+      height: 4rem;
+      min-height: 4rem;
+      align-items: center;
+      display: flex;
+      border-bottom: 1px solid rgba(232, 232, 232, 0.25);
+      background-color: var(--nav);
+      position: sticky;
+      top: 0;
+  }
 
 
-#chanMessageList {
-    overflow: auto;
-    flex-grow: 1;
-    flex-direction: column;
-    display: flex;
+  .chanHeader h1 {
+      line-height: 1;
+      font-size: .875rem;
+      font-weight: 700;
+      margin: 0;
+  }
 
-}
+  .chanHeader span {
+      line-height: 1;
+      font-size: .75rem;
+  }
+
+  #chanMessageList {
+      overflow: auto;
+      flex-grow: 1;
+      flex-direction: column;
+      display: flex;
+
+  }
+
+  .hidden {
+      transition: all .3s;
+      opacity: 0;
+  }
+
+  .hamburger {
+      margin-right: 15px;
+      display: none;
+      transition: all .5s;
+      position: fixed;
+      top: 19px;
+      left: 17px;
+      z-index: 101;
+  }
+
+  .hamburger.open {
+      transform: translateX(280px)
+  }
+
+  .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin-bottom: 5px;
+      position: relative;
+      background: #cdcdcd;
+      border-radius: 3px;
+      z-index: 1;
+      transform-origin: 4px 0px;
+      transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.55s ease;
+      top: 2px;
+  }
+
+
+
+  .hamburger span:first-child {
+      transform-origin: 0% 0%;
+  }
+
+  .hamburger span:nth-last-child(2) {
+      transform-origin: 0% 100%;
+  }
+
+
+  .hamburger.open span {
+      opacity: 1;
+      transform: rotate(-45deg) translate(2px, 3px);
+  }
+
+  .hamburger.open span:nth-last-child(3) {
+      opacity: 0;
+      transform: rotate(0deg) scale(0.2, 0.2);
+  }
+
+  .hamburger.open span:nth-last-child(2) {
+      transform: rotate(45deg) translate(-2px, -8px);
+  }
+
+  @media (max-width: 700px) {
+      .guildSelector {
+          position: absolute;
+          left: -280px;
+      }
+
+      .hamburger {
+          display: block;
+      }
+
+      .chanDesc {
+          margin-left: 42px;
+      }
+  }

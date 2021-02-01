@@ -296,3 +296,14 @@ body {
 .succes {
     color: green;
 }
+
+@media (max-width: 620px) {
+    .form {
+        width: 100%;
+    }
+
+    .form-toggle {
+        top: 30px;
+        right: 30px;
+    }
+}

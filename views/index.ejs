@@ -5,10 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title><%= title %></title>
+        <title>TChat — BTSSN</title>
         <link rel='stylesheet' href='/stylesheets/style.css' />
     </head>
     <body>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <div class="flex">
             <nav class="guildSelector">
                 <header class="profil">
@@ -76,8 +81,6 @@
 
         </div>
 
-
-
         <script src="/socket.io/socket.io.js"></script>
 
         <script>
@@ -87,7 +90,11 @@
             document.addEventListener('readystatechange', async event => {
 
                 if (event.target.readyState === "complete") {
-                    const { id } = document.querySelector("[data-channel]")
+
+                    if (document.querySelector("[data-channel]")) {
+                        const { id } = document.querySelector("[data-channel]")
+                        getChannel(id)
+                    }
 
                     for (const channel of document.querySelectorAll("[data-channel]")) {
 
@@ -106,6 +113,16 @@
                     }
 
                 }
+
+            })
+
+            const menu = document.querySelector('.hamburger')
+
+            menu.addEventListener('click', function(e) {
+
+                document.querySelector('.guildSelector').classList.toggle("menuOpen");
+                menu.classList.toggle("open");
+
             })
 
             socket.on('roomMessage', function(data) {
@@ -157,7 +174,7 @@
                         input.value = '';
                     }
 
-                })
+                });
 
             }
 
@@ -259,205 +276,16 @@
                 today.setMinutes(0);
                 today.setSeconds(0);
                 today.setMilliseconds(0);
-                compDate = new Date(year,month-1,day); // month - 1 because January == 0
-                diff = today.getTime() - compDate.getTime(); // get the difference between today(at 00:00:00) and the date
+                compDate = new Date(year,month-1,day);
+                diff = today.getTime() - compDate.getTime();
                 if (compDate.getTime() == today.getTime()) {
                     return "Today";
                 } else if (diff <= (24 * 60 * 60 *1000)) {
                     return "Yesterday";
                 } else {
-                    return compDate.toDateString(); // or format it what ever way you want
+                    return compDate.toDateString();
                 }
             }
-
-
-
-
-            // const socket = io();
-            // let currentChannnel;
-            // let type;
-
-            // $(async function() {
-
-            //     const { id } = $("[data-channel]").first()[0]
-            //     await getChannel(id);
-            //     const messages = document.getElementById('chanMessageList');
-            //     messages.scrollTo(0, messages.scrollHeight);
-
-            // })
-
-            // // let currentChannnel;
-
-            // //
-
-            // // $(async function() {
-            // //     if(!currentChannnel) {
-
-
-            // //         const form      = document.getElementById('formMessage')
-            // //             , input     = document.getElementById('send')
-            // //             , messages  = document.getElementById('messageLog');
-
-            // //             console.log(form);
-
-            // //           form.addEventListener('submit', function(e) {
-            // //             e.preventDefault();
-            // //             if (input.value) {
-            // //                 socket.emit('chat message', input.value);
-            // //                 input.value = '';
-            // //             }
-            // //         })
-            // //     }
-            // // })
-
-
-            // function setInput() {
-
-            //     const form      = document.getElementById('formMessage')
-            //         , input     = document.getElementById('send')
-            //         , messages  = document.getElementById('chanMessageList');
-
-            //     form.addEventListener('submit', function(e) {
-            //         e.preventDefault();
-
-            //         if (input.value) {
-
-            //             if (type === 1) {
-            //                 socket.emit('chatMessage', {content: input.value, channel: currentChannnel});
-            //             } else if (type === 0) {
-            //                 socket.emit('privateMessage', {content: input.value, channel: currentChannnel});
-            //             }
-
-            //             input.value = '';
-            //         }
-            //     })
-
-
-            //  socket.on('sendMessage', function (msg) {
-
-            //     if (msg.msg.channel === currentChannnel && type === 1) {
-            //         messages.innerHTML += newMessage(msg);
-            //         messages.scrollTo(0, messages.scrollHeight);
-            //     }
-
-            // });
-
-            // socket.on('sendMP', function (user, msg) {
-
-            //     console.log(user, msg);
-
-
-            //     // if (msg.msg.channel === currentChannnel && type === 0) {
-            //     //     console.log("J'ecris un truc");
-            //     //     messages.innerHTML += newMessage(msg);
-            //     //     messages.scrollTo(0, messages.scrollHeight);
-            //     // }
-
-            // });
-
-
-
-            // }
-
-            // async function getChannel(id) {
-
-            //     await $.ajax({
-            //         type: 'POST',
-            //         url: `/channel/${id}`,
-
-            //         success: (response) => {
-
-            //             currentChannnel = id;
-            //             type = 1;
-            //             document.getElementById("channel").innerHTML = response;
-            //             setInput();
-            //             const messages = document.getElementById('chanMessageList');
-            //             messages.scrollTo(0, messages.scrollHeight);
-            //          }
-            //     })
-            // }
-
-            // async function getMp(id) {
-
-            //     await $.ajax({
-            //         type: 'POST',
-            //         url: `/user/${id}`,
-
-            //         success: (response) => {
-            //             currentChannnel = id;
-            //             type = 0
-            //             document.getElementById("channel").innerHTML = response;
-            //             setInput();
-            //             const messages = document.getElementById('chanMessageList');
-            //             messages.scrollTo(0, messages.scrollHeight);
-            //          }
-            //     })
-            // }
-
-            // $("[data-channel]").click(function() {
-            //     getChannel(this.id)
-            // });
-
-            // $("[data-user]").click(function() {
-            //     getMp(this.id)
-            // });
-
-
-
-            // // console.log(document.getElementById('formMessage'));
-
-
-
-            // //  $('#messagebox').keyup(function() {
-            // //     console.log('happening');
-            // //     typing = true;
-            // //     $("#icon-type").removeClass();
-            // //     console.log("typing typing ....");
-            // //     //socket.emit('typing', 'typing...');
-            // //     socket.emit('typing', {
-            // //         text: name + " is typing ..."
-            // //     });
-            // //     clearTimeout(timeout);
-            // //     timeout = setTimeout(timeoutFunction, 1000);
-            // //     });
-
-
-
-            //                 function newMessage(data) {
-
-            //     return `
-            //         <div class="message">
-            //             <div class="guildIcon">
-            //                 <% if(user.Avatar){ %>
-            //                     <img src="<%= user.Avatar %>">
-            //                 <% } else { %>
-            //                     <% let guildAcro = user.Username.split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'') %>
-            //                     <%= guildAcro %>
-            //                 <% } %>
-            //             </div>
-            //             <div class="content">
-            //                 <b>${data.user.Username}</b>
-            //                 <small>
-            //                     ${
-            //                         (() => {
-
-            //                             const time = new Date(data.msg.time)
-
-            //                             return `
-            //                                 ${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}
-            //                                 ${String(time.getHours()).padStart(2, '0')}:${String(time.getMinutes()).padStart(2, '0')}
-            //                             `
-            //                         })()
-
-            //                     }
-
-            //                 </small>
-            //                 <p>${data.msg.content}</p>
-            //             </div>
-            //         </div>
-            //     </div>
-            //     `
-            // }
 
 
         </script>
