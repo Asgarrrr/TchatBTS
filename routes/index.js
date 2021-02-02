@@ -25,13 +25,13 @@ module.exports = function (io, db) {
         const user = socket.request.session.user
 
         socket.on('room', function(room) {
+            socket.leave(user.room);
             socket.join(room);
             user.room = room
         });
 
         socket.on('mpRoom', function(room) {
-            socket.join("mp"+room);
-            user.room = "mp"+room
+
         });
 
 
@@ -40,11 +40,13 @@ module.exports = function (io, db) {
 
             const time = new Date().toString();
 
-            io.in(user.room).emit('roomMessage', {
+            io.in(user.room + user._ID).emit('roomMessage', {
                 timestamp   : time,
                 content     : msg.content,
                 user        : user,
             });
+
+            console.log(msg)
 
             db.prepare('INSERT INTO messages ("_AuthorID", "Content", "_ChannelID", "Time") VALUES (?, ?, ?, ?)').run(
                 user._ID, msg.content, msg.room, time
@@ -56,57 +58,19 @@ module.exports = function (io, db) {
 
             const time = new Date().toString();
 
+            console.log(user.room);
+
             io.in(user.room).emit('roomPrivate', {
                 timestamp   : time,
                 content     : msg.content,
                 user        : user,
             });
 
+            db.prepare('INSERT INTO mp ("_from", "_to", "content", "time") VALUES (?, ?, ?, ?)').run(
+                user._ID, msg.room, msg.content, time
+            );
+
         })
-
-
-
-
-
-
-
-        // socket.on('chatMessage', function (msg) {
-
-        //     console.log("New message")
-
-        //     const time = new Date().toString();
-
-        //     msg.time = time;
-
-        //     db.prepare('INSERT INTO messages ("_AuthorID", "Content", "_ChannelID", "Time") VALUES (?, ?, ?, ?)').run(
-        //         user._ID, msg.content, msg.channel, time
-        //     );
-
-        //     console.log("sendMessage");
-
-        //     io.emit('sendMessage', {
-        //         user: user,
-        //         msg: msg,
-        //     })
-
-        // })
-
-        // socket.on('privateMessage', function(msg) {
-
-        //     const time = new Date().toString();
-
-        //     msg.time = time;
-
-        //     db.prepare('INSERT INTO mp ("_from", "_to", "content", "Time") VALUES (?, ?, ?, ?)').run(
-        //         user._ID, msg.channel, msg.content, time
-        //     );
-
-        //     io.emit('sendMP', {
-        //         user: user,
-        //         msg: msg,
-        //     })
-        // })
-
 
     });
     return router;
